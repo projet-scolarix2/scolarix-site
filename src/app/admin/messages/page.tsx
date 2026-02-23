@@ -3,7 +3,7 @@
 import { Card, CardHeader, CardBody } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { useState } from "react";
-import { User, Smartphone, Upload } from "lucide-react";
+import { User, Smartphone, Upload, ArrowLeft } from "lucide-react";
 
 const mockConversations = [
   { id: 1, name: "Parent Dupont", lastMessage: "Merci pour les résultats", time: "10:30", unread: 2, avatar: "" },
@@ -21,6 +21,7 @@ const mockMessages = [
 export default function MessagesPage() {
   const [selectedConversation, setSelectedConversation] = useState(mockConversations[0]);
   const [newMessage, setNewMessage] = useState("");
+  const [showChatMobile, setShowChatMobile] = useState(false);
 
   const handleSendMessage = () => {
     if (newMessage.trim()) {
@@ -39,7 +40,7 @@ export default function MessagesPage() {
       {/* Messages Container */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 min-h-[60vh]">
         {/* Conversations List */}
-        <Card className="lg:col-span-1 p-0 flex flex-col">
+        <Card className={`${showChatMobile ? "hidden" : "block"} md:block lg:col-span-1 p-0 flex flex-col`}>
           <div className="p-4 border-b border-dark-700">
             <input
               type="text"
@@ -51,7 +52,10 @@ export default function MessagesPage() {
             {mockConversations.map((conv) => (
               <button
                 key={conv.id}
-                onClick={() => setSelectedConversation(conv)}
+                onClick={() => {
+                  setSelectedConversation(conv);
+                  setShowChatMobile(true);
+                }}
                 className={`w-full p-4 border-b border-dark-700 text-left transition-colors ${
                   selectedConversation.id === conv.id
                     ? "bg-primary-600/20 border-primary-600"
@@ -76,11 +80,14 @@ export default function MessagesPage() {
         </Card>
 
         {/* Chat Window */}
-        <Card className="lg:col-span-2 p-6 flex flex-col">
+        <Card className={`${showChatMobile ? "block" : "hidden"} md:block lg:col-span-2 p-6 flex flex-col`}>
           {/* Chat Header */}
           <div className="pb-4 border-b border-dark-700 mb-4">
             <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
+                <Button variant="ghost" size="sm" className="md:hidden mr-2" onClick={() => setShowChatMobile(false)}>
+                  <ArrowLeft className="w-4 h-4" />
+                </Button>
                 <User className="w-10 h-10 text-white bg-dark-700 p-1 rounded-full" />
                 <div>
                   <h3 className="text-white font-bold">{selectedConversation.name}</h3>
