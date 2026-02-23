@@ -110,7 +110,7 @@ export default function ParentMessagesPage() {
       </div>
 
       {/* Messages Layout */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 h-[600px]">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 min-h-[60vh]">
         {/* Contacts List */}
         <Card className="lg:col-span-1 p-0 flex flex-col">
           <div className="p-4 border-b border-dark-700">
@@ -181,7 +181,7 @@ export default function ParentMessagesPage() {
             {conversationMessages.map((msg) => (
               <div key={msg.id} className={`flex ${msg.own ? "justify-end" : "justify-start"}`}>
                 <div
-                  className={`max-w-xs px-4 py-2 rounded-lg text-sm ${
+                  className={`max-w-[85%] sm:max-w-xs md:max-w-md px-4 py-2 rounded-lg text-sm ${
                     msg.own
                       ? "bg-primary-600 text-white rounded-br-none"
                       : "bg-dark-700 text-gray-100 rounded-bl-none"
@@ -195,7 +195,7 @@ export default function ParentMessagesPage() {
           </div>
 
           {/* Input */}
-          <form onSubmit={handleSendMessage} className="flex gap-2 pt-2 border-t border-dark-700">
+          <form onSubmit={handleSendMessage} className="flex flex-col sm:flex-row gap-2 pt-2 border-t border-dark-700">
             <input
               type="text"
               placeholder="Écrivez votre message..."
@@ -203,7 +203,7 @@ export default function ParentMessagesPage() {
               onChange={(e) => setMessageInput(e.target.value)}
               className="flex-1 bg-dark-700 border border-dark-600 rounded-lg px-4 py-2 text-white placeholder-gray-500 focus:border-primary-500 focus:outline-none text-sm"
             />
-            <Button type="submit" variant="primary" size="md">
+            <Button type="submit" variant="primary" size="md" className="w-full sm:w-auto">
               <Send className="w-4 h-4" />
             </Button>
           </form>

@@ -37,7 +37,7 @@ export default function MessagesPage() {
       </div>
 
       {/* Messages Container */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 h-96">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 min-h-[60vh]">
         {/* Conversations List */}
         <Card className="lg:col-span-1 p-0 flex flex-col">
           <div className="p-4 border-b border-dark-700">
@@ -101,7 +101,7 @@ export default function MessagesPage() {
                 className={`flex ${msg.own ? "justify-end" : "justify-start"}`}
               >
                 <div
-                  className={`max-w-xs px-4 py-2 rounded-lg ${
+                  className={`max-w-[85%] sm:max-w-xs md:max-w-md px-4 py-2 rounded-lg ${
                     msg.own
                       ? "bg-primary-600 text-white rounded-br-none"
                       : "bg-dark-700 text-gray-100 rounded-bl-none"
@@ -115,7 +115,7 @@ export default function MessagesPage() {
           </div>
 
           {/* Input */}
-          <div className="flex gap-2">
+          <div className="flex flex-col sm:flex-row gap-2">
             <input
               type="text"
               placeholder="Écrivez votre message..."
@@ -127,6 +127,7 @@ export default function MessagesPage() {
             <Button
               variant="primary"
               onClick={handleSendMessage}
+              className="w-full sm:w-auto"
             >
               <Upload className="w-4 h-4" />
             </Button>
